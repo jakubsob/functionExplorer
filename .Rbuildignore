@@ -1,0 +1,8 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+dev_history\.R
+^dev$
+$run_dev.*
+^LICENSE\.md$
+^README\.Rmd$
+^debug\.log$
