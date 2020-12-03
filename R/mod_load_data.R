@@ -17,20 +17,7 @@ mod_load_data_ui <- function(id){
         div(
           class = "ui raised segment",
           style = "text-align: center;",
-          # div(class = "ui horizontal divider", "Upload files", style = "font-size: 12px;"),
-          # div(
-          #   style = "display: inline-block;",
-          #   id = ns("file_input_div"),
-          #   fileInput(
-          #     ns("upload"),
-          #     label = "",
-          #     accept = ".R",
-          #     multiple = TRUE,
-          #     buttonLabel = icon("upload"),
-          #     width = "100%"
-          #   )
-          # ),
-          div(class = "ui horizontal divider", "Github repository", style = "font-size: 12px;"),
+          div(class = "ui horizontal divider", "Download", style = "font-size: 12px;"),
           div(
             id = ns("github_input_div"),
             shiny.semantic::action_button(
@@ -79,11 +66,12 @@ mod_load_data_ui <- function(id){
 mod_load_data_server <- function(input, output, session, help, tab){
   ns <- session$ns
   
+  
   intro <- reactive(
     data.frame(
       element = paste0("#", ns(c("github_input_div", "toggle", "parse", "reset"))),
       intro = c(
-        "Click to upload source files",
+        "Click to download repository for exploration",
         "If this toggle is on then only user defined functions will be parsed",
         "Click this button to run parser",
         "Click this button to delete uploaded files"
@@ -91,6 +79,7 @@ mod_load_data_server <- function(input, output, session, help, tab){
     )
   )
 
+  
   observeEvent(help(), {
     # Trigger tutorial for this tab only when this tab is selected
     # Without this check, tutorial steps from tabs are messed up
@@ -105,11 +94,7 @@ mod_load_data_server <- function(input, output, session, help, tab){
     functions = NULL,
     dependencies = NULL
   )
-  
-  observeEvent(input$upload, {
-    data$loaded_files <- unique(c(data$loaded_files, input$upload$datapath))
-  }, ignoreInit = TRUE, ignoreNULL = TRUE)
-  
+
   
   observeEvent(input$reset, {
     data$loaded_files <- NULL
@@ -122,6 +107,15 @@ mod_load_data_server <- function(input, output, session, help, tab){
   
   observeEvent(input$parse, {
     if (is.null(data$temp_dir)) return()
+    shiny.semantic::showNotification(
+      "Parsing data",
+      duration = 0,
+      closeButton = FALSE,
+      type = "message",
+      id = ns("parse_notif"),
+      session = session
+    )
+    
     data$envir <- new.env()
     data$functions <- functiondepends::find_functions(
       data$temp_dir, 
@@ -131,9 +125,14 @@ mod_load_data_server <- function(input, output, session, help, tab){
       tidyr::unite("Path", tidyselect::starts_with("Level"), sep = "/")
     data$dependencies <- functiondepends::find_dependencies(
       unique(data$functions$Function),
-      envir = envir,
+      envir = data$envir,
       in_envir = input$user_defined,
       add_info = TRUE
+    )
+    
+    shiny.semantic::removeNotification(
+      ns("parse_notif"),
+      session = session
     )
   }, ignoreInit = TRUE, ignoreNULL = TRUE)
   
@@ -189,16 +188,43 @@ mod_load_data_server <- function(input, output, session, help, tab){
   
   
   observeEvent(input$repository_download, {
+    shiny.semantic::showNotification(
+      "Downloading repository...", 
+      id = ns("downloading_notif"),
+      duration = 0, 
+      type = "message",
+      closeButton = FALSE,
+      session = session
+    )
     repo <- input$repository_name
     branch <- input$repository_branch
     destfile <- file.path(tempdir(), sprintf("%s-%s.zip", basename(repo), branch))
-    download.file(
-      url = sprintf("https://github.com/%s/archive/%s.zip", repo, branch),
-      destfile = destfile
+    
+    tryCatch({
+      suppressWarnings(
+        download.file(
+          url = sprintf("https://github.com/%s/archive/%s.zip", repo, branch),
+          destfile = destfile,
+          quiet = TRUE
+        )
+      )
+      unzip(destfile, exdir = tempdir(), overwrite = TRUE)
+      unlink(destfile)
+      data$temp_dir <- gsub(".zip$", "", destfile)
+      },
+      error = function(e) {
+        shiny.semantic::showNotification(
+          "Error downloading repository. Check if repository exists.",
+          type = "error",
+          session = session
+        )
+        NULL
+      }
     )
-    unzip(destfile, exdir = tempdir())
-    unlink(destfile)
-    data$temp_dir <- gsub(".zip$", "", destfile)
+    shiny.semantic::removeNotification(
+      id = ns("downloading_notif"), 
+      session = session
+    )
   }, ignoreInit = TRUE, ignoreNULL = TRUE)
 
     
@@ -207,7 +233,7 @@ mod_load_data_server <- function(input, output, session, help, tab){
       tagList(
         div(
           class = "ui placeholder segment",
-          style = "height: 400px",
+          style = "height: 320px",
           div(
             class = "ui icon header",
             div(

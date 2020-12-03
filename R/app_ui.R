@@ -30,7 +30,7 @@ app_ui <- function(request) {
             shiny.semantic::actionButton(
               "help",
               icon("question mark"),
-              class = "align-rights;"
+              class = "basic"
             )
           )
         )

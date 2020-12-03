@@ -42,6 +42,7 @@ mod_graph_ui <- function(id){
             ns("reset_button"), 
             label = "",
             icon = icon("remove"),
+            class = "basic",
             width = "100%"
           )
         ),
