@@ -31,3 +31,21 @@ To run:
 ```{r, eval = FALSE}
 functionExplorer::run_app()
 ```
+
+## User Interface
+
+```{r, echo = FALSE, fig.cap = "Start page of app."}
+knitr::include_graphics("man/figures/README-load-data.png")
+```
+
+```{r, echo = FALSE, fig.cap = "Data downloading popup."}
+knitr::include_graphics("man/figures/README-load-data-popup.png")
+```
+
+```{r, echo = FALSE, fig.cap = "Function dependencies network."}
+knitr::include_graphics("man/figures/README-plot-all.png")
+```
+
+```{r, echo = FALSE, fig.cap = "Function dependencies network with selected node."}
+knitr::include_graphics("man/figures/README-plot-node.png")
+```

@@ -20,12 +20,18 @@ mod_load_data_ui <- function(id){
           div(class = "ui horizontal divider", "Download", style = "font-size: 12px;"),
           div(
             id = ns("github_input_div"),
-            shiny.semantic::action_button(
-              ns("github_input"),
-              label = "",
-              width = "100%",
-              icon = icon("github"),
-              class = "basic"
+            div(
+              class = "ui vertical animated basic fade button",
+              id = ns("github_input"),
+              style = "width: 100%",
+              div(
+                class = "visible content",
+                icon("github")
+              ),
+              div(
+                class = "hidden content",
+                "GitHub"
+              )
             )
           ),
           div(class = "ui horizontal divider", "User defined functions", style = "font-size: 12px;"),
@@ -65,7 +71,6 @@ mod_load_data_ui <- function(id){
 #' @noRd 
 mod_load_data_server <- function(input, output, session, help, tab){
   ns <- session$ns
-  
   
   intro <- reactive(
     data.frame(
