@@ -5,7 +5,7 @@
 \alias{dependencies}
 \title{Dependencies}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 703 rows and 5 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 85 rows and 7 columns.
 }
 \usage{
 dependencies

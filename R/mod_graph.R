@@ -156,11 +156,27 @@ mod_graph_server <- function(input, output, session, help, tab, loaded_data){
   observeEvent(input$reset_button, {
     graph_data$selected_node <- NULL
     graph_data$subgraph <- graph_data$graph
+    nodes <- if (is.null(graph_data$graph)) {
+      NULL
+    } else {
+      c("", sort(names(igraph::V(graph_data$graph))))
+    }
     shiny.semantic::update_dropdown_input(
       session = session,
       input_id = "select_node",
-      choices = c("", sort(names(igraph::V(graph_data$graph)))),
+      choices = nodes,
       value = ""
+    )
+    shiny.semantic::update_numeric_input(
+      session = session,
+      input_id = "select_order",
+      value = 1
+    )
+    shiny.semantic::updateSelectInput(
+      session = session,
+      inputId = "select_mode",
+      label = "",
+      selected = "all"
     )
   })
   

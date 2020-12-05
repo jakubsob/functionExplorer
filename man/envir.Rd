@@ -5,7 +5,7 @@
 \alias{envir}
 \title{Envir}
 \format{
-An object of class \code{environment} of length 397.
+An object of class \code{environment} of length 5.
 }
 \usage{
 envir

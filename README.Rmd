@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # functionExplorer
 
 <!-- badges: start -->
+[![R build status](https://github.com/WelcomeToMyVirtualHome/functionExplorer/workflows/R-CMD-check/badge.svg)](https://github.com/WelcomeToMyVirtualHome/functionExplorer/actions)
 <!-- badges: end -->
 
 ## Installation

@@ -111,7 +111,14 @@ mod_load_data_server <- function(input, output, session, help, tab){
   
   
   observeEvent(input$parse, {
-    if (is.null(data$temp_dir)) return()
+    if (is.null(data$temp_dir)) {
+      shiny.semantic::showNotification(
+        "No downloaded data",
+        type = "warning",
+        duration = 5
+      )
+      return()
+    }
     shiny.semantic::showNotification(
       "Parsing data",
       duration = 0,
@@ -207,13 +214,13 @@ mod_load_data_server <- function(input, output, session, help, tab){
     
     tryCatch({
       suppressWarnings(
-        download.file(
+        utils::download.file(
           url = sprintf("https://github.com/%s/archive/%s.zip", repo, branch),
           destfile = destfile,
           quiet = TRUE
         )
       )
-      unzip(destfile, exdir = tempdir(), overwrite = TRUE)
+      utils::unzip(destfile, exdir = tempdir(), overwrite = TRUE)
       unlink(destfile)
       data$temp_dir <- gsub(".zip$", "", destfile)
       },
