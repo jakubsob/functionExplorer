@@ -9,6 +9,8 @@ Authors@R:
 Description: Upload R source files and interactively explore dependencies of 
     implemented functions. 
 License: MIT + file LICENSE
+Remotes:
+    ColinFay/gargoyle
 Imports: 
     config (>= 0.3),
     golem (>= 0.2.1),
@@ -23,17 +25,19 @@ Imports:
     rlang (>= 0.4.8),
     dplyr (>= 1.0.2),
     igraph (>= 1.2.5),
-    networkD3 (>= 0.4),
     tidyr (>= 1.1.2),
     DT (>= 0.16),
     functiondepends (>= 0.2.1),
     purrr (>= 0.3.4),
     tidyselect (>= 1.1.0),
-    future (>= 1.20.1),
-    promises (>= 1.1.1),
-    utils
+    visNetwork (>= 2.0.9),
+    utils,
+    gargoyle,
+    R6
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Depends: 
     R (>= 2.10)
+Suggests: 
+    testthat
