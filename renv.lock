@@ -254,13 +254,6 @@
       "Repository": "CRAN",
       "Hash": "44594a07a42e5f91fac9f93fda6d0109"
     },
-    "functionExplorer": {
-      "Package": "functionExplorer",
-      "Version": "0.1.0",
-      "Source": "unknown",
-      "Remotes": "ColinFay/gargoyle",
-      "Hash": "c4be4ec6a87ed65d82c62394535dbd39"
-    },
     "functiondepends": {
       "Package": "functiondepends",
       "Version": "0.2.1",
@@ -274,11 +267,11 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "gargoyle",
       "RemoteUsername": "ColinFay",
-      "RemoteRef": "HEAD",
+      "RemoteRepo": "gargoyle",
+      "RemoteRef": "master",
       "RemoteSha": "1c9eeed3c7346ce9069a905bc07a0d87ca43b28e",
-      "Hash": "3fb8b089c37680bb67cc09286c4c1ccb"
+      "Hash": "fc6189c0b701d7f081762d7f3855a554"
     },
     "generics": {
       "Package": "generics",

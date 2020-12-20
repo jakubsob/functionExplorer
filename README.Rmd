@@ -16,18 +16,22 @@ knitr::opts_chunk$set(
 # functionExplorer
 
 <!-- badges: start -->
-[![R build status](https://github.com/WelcomeToMyVirtualHome/functionExplorer/workflows/R-CMD-check/badge.svg)](https://github.com/WelcomeToMyVirtualHome/functionExplorer/actions)
+[![R build status](https://github.com/jakubsob/functionExplorer/workflows/R-CMD-check/badge.svg)](https://github.com/jakubsob/functionExplorer/actions)
+[![license](https://img.shields.io/badge/license-mit-lightgrey.svg)](https://choosealicense.com/)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
+
+An app for exploring dependencies between functions from selected GitHub repository.
 
 ## Installation
 
-Download development version from GitHub:
+Install from GitHub:
 
 ```{r, eval = FALSE}
-devtools::install_github("WelcomeToMyVirtualHome/functionExplorer")
+devtools::install_github("jakubsob/functionExplorer")
 ```
 
-To run:
+and run:
 
 ```{r, eval = FALSE}
 functionExplorer::run_app()
@@ -41,6 +45,10 @@ knitr::include_graphics("man/figures/README-load-data.png")
 
 ```{r, echo = FALSE, fig.cap = "Data downloading popup."}
 knitr::include_graphics("man/figures/README-load-data-popup.png")
+```
+
+```{r, echo = FALSE, fig.cap = "Tables with loaded and parsed data."}
+knitr::include_graphics("man/figures/README-downloaded-data.png")
 ```
 
 ```{r, echo = FALSE, fig.cap = "Function dependencies network."}

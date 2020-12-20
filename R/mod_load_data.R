@@ -143,17 +143,14 @@ mod_load_data_server <- function(input, output, session, data){
       id = ns("parse_notif"),
       session = session
     )
-    
+    browser()
     data$find_functions()
     data$find_dependencies(input$user_defined)
     data$make_graph()
     
     gargoyle::trigger(ns("parsed"))
     
-    shiny.semantic::removeNotification(
-      ns("parse_notif"),
-      session = session
-    )
+    shiny.semantic::removeNotification(ns("parse_notif"), session)
   }, ignoreInit = TRUE, ignoreNULL = TRUE)
   
   
@@ -162,7 +159,7 @@ mod_load_data_server <- function(input, output, session, data){
     gargoyle::trigger(ns("resetted"))
   }, ignoreInit = TRUE, ignoreNULL = TRUE)
   
-  
+
   output$tables <- renderUI({
     gargoyle::watch(ns("parsed"))
     gargoyle::watch(ns("resetted"))
@@ -202,7 +199,12 @@ mod_load_data_server <- function(input, output, session, data){
   output$functions_table <- DT::renderDT({
     DT::datatable(
       data$get_functions(),
-      options = list(scrollX = TRUE)
+      options = list(
+        scrollX = TRUE
+      ),
+      class = "ui small compact table",
+      style = "semanticui",
+      rownames = FALSE
     )
   })
   
@@ -210,7 +212,12 @@ mod_load_data_server <- function(input, output, session, data){
   output$dependencies_table <- DT::renderDT({
     DT::datatable(
       data$get_dependencies(),
-      options = list(scrollX = TRUE)
+      options = list(
+        scrollX = TRUE
+      ),
+      class = "ui small compact table",
+      style = "semanticui",
+      rownames = FALSE
     )
   })
 }
@@ -237,7 +244,7 @@ create_download_modal <- function(ns) {
           shiny.semantic::textInput(
             ns("repository_name"),
             label = "",
-            placeholder = "jakubsob/functionExplorer",
+            placeholder = const_github$default_repo,
             width = "100%"
           )
         ),
@@ -247,7 +254,7 @@ create_download_modal <- function(ns) {
           shiny.semantic::textInput(
             ns("repository_branch"),
             label = "",
-            placeholder = "master",
+            placeholder = const_github$default_branch,
             width = "100%"
           )
         ),
