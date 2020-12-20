@@ -62,7 +62,7 @@ FunctionData <- R6::R6Class(
           )
           utils::unzip(destfile_zip, exdir = tempdir(), overwrite = TRUE)
           unlink(destfile_zip)
-          self$set_path(gsub(".zip$", "", destfile_zip))
+          self$set_path(destfile)
           return(TRUE)
         },
         error = function(e) {
@@ -156,11 +156,11 @@ FunctionData <- R6::R6Class(
     #' @param mode Character, mode of neighborhood
     #' @param order Integer, order of neighborhood
     get_graph = function(node = NULL, mode = NULL, order = NULL) {
-      if (!is.null(node)) {
-        g_ego <- igraph::ego(self$graph, order = order %||% 1, nodes = node, mode = mode %||% "all")
-        return(igraph::induced_subgraph(self$graph, unlist(g_ego)))
+      if (is.null(node)) {
+        return(self$graph)
       }
-      self$graph
+      g_ego <- igraph::ego(self$graph, order = order %||% 1, nodes = node, mode = mode %||% "all")
+      igraph::induced_subgraph(self$graph, unlist(g_ego))
     },
     
     #' @description Plot network
@@ -185,7 +185,7 @@ FunctionData <- R6::R6Class(
         size = sqrt(igraph::degree(graph)) * 10
       ) %>% 
         dplyr::left_join(
-          data$functions %>% dplyr::select(Function, group = Source),
+          self$functions %>% dplyr::select(Function, group = Source),
           by = c("id" = "Function")
         ) %>% 
         dplyr::mutate(
@@ -212,14 +212,16 @@ FunctionData <- R6::R6Class(
       if (!self$is_initialized() | length(igraph::V(graph)) < 2) {
         return(NULL)
       }
+      
       tibble::tibble(
-        Density = igraph::degree_distribution(graph, mode = mode),
-        Degree = 1:length(Density) - 1
+        Degree = igraph::degree(graph, mode = mode)
       ) %>%
-        ggplot(aes(x = Degree, y = Density)) +
+        dplyr::group_by(Degree) %>% 
+        dplyr::tally(name = "Count") %>% 
+        ggplot(aes(x = Degree, y = Count)) +
         geom_col() +
         theme_light() +
-        labs(title = sprintf("Node '%s' degree distribution", mode))
+        labs(title = glue::glue("Node \"{mode}\" degree distribution"))
     }
   )
 )
