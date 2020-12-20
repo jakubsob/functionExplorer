@@ -69,14 +69,21 @@ mod_load_data_ui <- function(id){
 #' load_data Server Function
 #'
 #' @noRd 
-mod_load_data_server <- function(input, output, session, data, help, tab){
+mod_load_data_server <- function(input, output, session, data){
   ns <- session$ns
+  
+  # Session data:
+  #   - active_tab: name of activetab
+  #   - help: reactive, triggered by clicking help button
+  active_tab <- session$userData$active_tab
+  help <- session$userData$help
+  
   gargoyle::init(ns("parsed"), ns("resetted"))
   
   observeEvent(help(), {
     # Trigger tutorial for this tab only when this tab is selected
     # Without this check, tutorial steps from tabs are messed up
-    if (tab() != "load_tab") return()
+    if (active_tab() != "load_tab") return()
     rintrojs::introjs(
       session, 
       options = list(steps = reactive(tutorial_mod_load_data(ns))())
@@ -230,7 +237,7 @@ create_download_modal <- function(ns) {
           shiny.semantic::textInput(
             ns("repository_name"),
             label = "",
-            placeholder = "WelcomeToMyVirtualHome/functionExplorer",
+            placeholder = "jakubsob/functionExplorer",
             width = "100%"
           )
         ),

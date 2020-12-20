@@ -80,8 +80,14 @@ mod_graph_ui <- function(id){
 #' @noRd 
 #' @importFrom magrittr %>% 
 #' @importFrom rlang %||%
-mod_graph_server <- function(input, output, session, data, help, tab){
+mod_graph_server <- function(input, output, session, data){
   ns <- session$ns
+  
+  # Session data:
+  #   - active_tab: name of activetab
+  #   - help: reactive, triggered by clicking help button
+  active_tab <- session$userData$active_tab
+  help <- session$userData$help
   
   # Reactive values from reacting with graph 
   graph_data <- reactiveValues(selected_node = NULL)
@@ -90,7 +96,7 @@ mod_graph_server <- function(input, output, session, data, help, tab){
   observeEvent(help(), {
     # Trigger tutorial for this tab only when this tab is selected
     # Without this check, tutorial steps from tabs are messed up
-    if (tab() != "plot_tab") return()
+    if (active_tab() != "plot_tab") return()
     rintrojs::introjs(
       session, 
       options = list(steps = reactive(tutorial_mod_graph(ns))())
@@ -103,7 +109,7 @@ mod_graph_server <- function(input, output, session, data, help, tab){
   })
   
   
-  observeEvent(tab(), {
+  observeEvent(active_tab(), {
     validate(need(data$get_graph(), ""))
     shiny.semantic::update_dropdown_input(
       session = session,
