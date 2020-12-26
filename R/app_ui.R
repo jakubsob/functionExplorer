@@ -18,9 +18,7 @@ app_ui <- function(request) {
         ",
         div(
           style = "display: inline-block; text-align: left; align-self: center;",
-          h2(
-            "Function Explorer"
-          )
+          h2("Function Explorer")
         ),
         tags$span(
           style = "display: inline-block; text-align: right; align-self: center;",

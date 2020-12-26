@@ -19,6 +19,8 @@ knitr::opts_chunk$set(
 [![R build status](https://github.com/jakubsob/functionExplorer/workflows/R-CMD-check/badge.svg)](https://github.com/jakubsob/functionExplorer/actions)
 [![license](https://img.shields.io/badge/license-mit-lightgrey.svg)](https://choosealicense.com/)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Codecov test coverage](https://codecov.io/gh/jakubsob/functionExplorer/branch/master/graph/badge.svg)](https://codecov.io/gh/jakubsob/functionExplorer?branch=master)
+[![Travis build status](https://travis-ci.com/jakubsob/functionExplorer.svg?branch=master)](https://travis-ci.com/jakubsob/functionExplorer)
 <!-- badges: end -->
 
 An app for exploring dependencies between functions from selected GitHub repository.
@@ -39,21 +41,33 @@ functionExplorer::run_app()
 
 ## User Interface
 
+The app opens to the following interface:
+
 ```{r, echo = FALSE, fig.cap = "Start page of app."}
 knitr::include_graphics("man/figures/README-load-data.png")
 ```
+
+To show tutorial on how to use click question mark button in top right corner.
+
+To download data use download button to open modal and fill in name of repository to download:
 
 ```{r, echo = FALSE, fig.cap = "Data downloading popup."}
 knitr::include_graphics("man/figures/README-load-data-popup.png")
 ```
 
+After download use button to parse data:
+
 ```{r, echo = FALSE, fig.cap = "Tables with loaded and parsed data."}
 knitr::include_graphics("man/figures/README-downloaded-data.png")
 ```
 
+Go to graph tab to view plotted network:
+
 ```{r, echo = FALSE, fig.cap = "Function dependencies network."}
 knitr::include_graphics("man/figures/README-plot-all.png")
 ```
+
+Select node based on value from select input in sidebar or by clicking node on graph:
 
 ```{r, echo = FALSE, fig.cap = "Function dependencies network with selected node."}
 knitr::include_graphics("man/figures/README-plot-node.png")

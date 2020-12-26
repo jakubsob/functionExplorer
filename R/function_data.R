@@ -35,9 +35,19 @@ FunctionData <- R6::R6Class(
     #' @description Reset fields to NULL
     reset = function() {
       self$path <- NULL
-      self$envir <- NULL
+      self$envir <- new.env()
       self$functions <- NULL
       self$dependencies <- NULL
+      self$graph <- NULL
+    },
+    
+    #' @description Create path to downloaded data
+    #' @param repo Character, name of repository in format Name/Repo
+    #' @param branch Character, name of branch
+    #' 
+    #' @return Character, path
+    create_path = function(repo, branch) {
+      file.path(tempdir(), glue::glue("{basename(repo)}-{branch}"))
     },
     
     #' @description Download repository from GitHub
@@ -46,11 +56,8 @@ FunctionData <- R6::R6Class(
     #' 
     #' @return Logical, indicates whether download succeeded
     download_github = function(repo, branch) {
-      destfile_zip <- file.path(tempdir(), sprintf("%s-%s.zip", basename(repo), branch))
-      destfile <- gsub(".zip$", "", destfile_zip)
-      if (file.exists(destfile)) {
-        self$set_path(destfile)
-      }
+      destfile <- self$create_path(repo, branch)
+      destfile_zip <- glue::glue("{destfile}.zip")
       tryCatch(
         {
           suppressWarnings(
@@ -99,8 +106,11 @@ FunctionData <- R6::R6Class(
         warning("Object not initialized")
         return()
       }
-      self$functions <- functiondepends::find_functions(self$path, envir = self$envir) %>%
-        tidyr::unite("Path", tidyselect::starts_with("Level"), sep = "/")
+      self$functions <- functiondepends::find_functions(self$path, envir = self$envir) 
+      if (!"Path" %in% names(self$functions)) {
+        self$functions <- self$functions %>% 
+          tidyr::unite("Path", tidyselect::starts_with("Level"), sep = "/")
+      }
     },
     
     #' @description Getter for \code{functions} field

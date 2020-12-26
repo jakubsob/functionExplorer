@@ -34,6 +34,7 @@ R6 class wrapper for data returned by \code{functiondepends} functions
 \item \href{#method-new}{\code{FunctionData$new()}}
 \item \href{#method-is_initialized}{\code{FunctionData$is_initialized()}}
 \item \href{#method-reset}{\code{FunctionData$reset()}}
+\item \href{#method-create_path}{\code{FunctionData$create_path()}}
 \item \href{#method-download_github}{\code{FunctionData$download_github()}}
 \item \href{#method-set_path}{\code{FunctionData$set_path()}}
 \item \href{#method-get_path}{\code{FunctionData$get_path()}}
@@ -86,6 +87,28 @@ Reset fields to NULL
 \if{html}{\out{<div class="r">}}\preformatted{FunctionData$reset()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-create_path"></a>}}
+\if{latex}{\out{\hypertarget{method-create_path}{}}}
+\subsection{Method \code{create_path()}}{
+Create path to downloaded data
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FunctionData$create_path(repo, branch)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{repo}}{Character, name of repository in format Name/Repo}
+
+\item{\code{branch}}{Character, name of branch}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Character, path
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-download_github"></a>}}
