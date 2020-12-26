@@ -11,6 +11,11 @@ r_check_args: --no-manual
 os:
   - linux
   - osx
+  
+addons:
+  apt:
+    packages:
+      - libgit2-dev
 
 r:
   - release

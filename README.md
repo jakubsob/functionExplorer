@@ -13,11 +13,12 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/jakubsob/functionExplorer/branch/master/graph/badge.svg)](https://codecov.io/gh/jakubsob/functionExplorer?branch=master)
 [![Travis build
-status](https://travis-ci.com/jakubsob/functionExplorer.svg?branch=master)](https://travis-ci.com/jakubsob/functionExplorer)
+status](https://img.shields.io/travis/com/jakubsob/functionExplorer.svg?logo=travis)](https://travis-ci.com/jakubsob/functionExplorer)
 <!-- badges: end -->
 
-An app for exploring dependencies between functions from selected GitHub
-repository.
+A Shiny app for exploring dependencies between functions from selected
+GitHub repository. Uses
+<a href = "https://github.com/Appsilon/shiny.semantic">shiny.semantic</a>.
 
 ## Installation
 

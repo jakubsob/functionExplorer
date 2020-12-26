@@ -39,7 +39,7 @@ app_ui <- function(request) {
             content = mod_load_data_ui("load_data_ui_1")
           ),
           list(
-            menu = "Plot", 
+            menu = "Graph", 
             id = "plot_tab",
             content = mod_graph_ui("graph_ui_1")
           )

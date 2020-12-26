@@ -17,13 +17,13 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R build status](https://github.com/jakubsob/functionExplorer/workflows/R-CMD-check/badge.svg)](https://github.com/jakubsob/functionExplorer/actions)
+[![Travis build status](https://img.shields.io/travis/com/jakubsob/functionExplorer.svg?logo=travis)](https://travis-ci.com/jakubsob/functionExplorer)
+[![Codecov test coverage](https://codecov.io/gh/jakubsob/functionExplorer/branch/master/graph/badge.svg)](https://codecov.io/gh/jakubsob/functionExplorer?branch=master)
 [![license](https://img.shields.io/badge/license-mit-lightgrey.svg)](https://choosealicense.com/)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Codecov test coverage](https://codecov.io/gh/jakubsob/functionExplorer/branch/master/graph/badge.svg)](https://codecov.io/gh/jakubsob/functionExplorer?branch=master)
-[![Travis build status](https://travis-ci.com/jakubsob/functionExplorer.svg?branch=master)](https://travis-ci.com/jakubsob/functionExplorer)
 <!-- badges: end -->
 
-An app for exploring dependencies between functions from selected GitHub repository.
+A Shiny app for exploring dependencies between functions from selected GitHub repository. Uses <a href = "https://github.com/Appsilon/shiny.semantic">shiny.semantic</a>.
 
 ## Installation
 
