@@ -1,6 +1,6 @@
 Package: functionExplorer
 Title: Explore Function Dependencies
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person(given = "Jakub",
            family = "Sobolewski",
